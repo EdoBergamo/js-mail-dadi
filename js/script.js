@@ -34,7 +34,7 @@ loginButton.addEventListener("click", function () {
         loginButton.classList.add("d-none");
         dice.classList.remove("d-none");
     } else {
-        welcome.innerHTML = `401 Unauthorized`;
+        welcome.innerHTML = `la mail ${email.value} non è valida.`;
     }
 });
 
