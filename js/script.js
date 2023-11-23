@@ -5,36 +5,54 @@ const AuthorizedList = [
     "third@mail.com",
 ]
 
-let email = prompt("inserisci la tua email: "); // Prompt
+let button = document.getElementById('accedi') // First Login Button
+let email = document.getElementById('email'); // email input
+let loginButton = document.getElementById('loginButton');
+let welcome = document.getElementById('welcome')
+let dice = document.getElementById('dice')
+let results = document.getElementById('results')
+
+button.addEventListener("click", function () {
+    email.type = 'email'
+    button.style.display = "none"
+    loginButton.type = 'submit'
+})
 
 let authorized = false;
 
-for (let i = 0; i < AuthorizedList.length; i++) { // Check if the mail is authorized
-    if (AuthorizedList[i] === email) {
-        authorized = true
-        break
+loginButton.addEventListener("click", function () {
+    for (let i = 0; i < AuthorizedList.length; i++) { // Check if the mail is authorized
+        if (AuthorizedList[i] === email.value) {
+            welcome.innerHTML = `bentornato <strong>${email.value}</strong>`;
+            authorized = true;
+            break;
+        } else {
+            welcome.innerHTML = `401 Unauthorized`
+            break;
+        }
     }
+
+    if (authorized) {
+        email.type = 'hidden'
+        loginButton.type = 'hidden'
+        dice.type = 'submit'
+    }
+})
+
+function nome() {}
+const asd = () => {
+    const dadoPlayer = Math.ceil(Math.random() * 6)
+    const dadoPC = Math.ceil(Math.random() * 6)
+
+    let winner;
+    console.log(`Dado player: ${dadoPlayer}\nDado PC: ${dadoPC}`)
+
+    if (dadoPlayer > dadoPC) winner = "Player ha vinto"
+    else if (dadoPC > dadoPlayer) winner = "Pc ha vinto"
+    else winner = 'Pareggio'
+
+    results.innerHTML = `${winner}<br>Player: ${dadoPlayer} - PC: ${dadoPC}`
 }
 
-// Let him access
-if (authorized) {
-    console.log("Accesso consentito")
+dice.addEventListener("click", asd)
 
-    // Generate random numbers
-    const dadoPlayer = Math.floor(Math.random() * 6) + 1;
-    const dadoPC = Math.floor(Math.random() * 6) + 1;
-
-    // Show results
-    console.log(`Il Giocatore ha ottenuto ${dadoPlayer}\nIl PC ${dadoPC}`)
-
-    // Who won?
-    if (dadoPlayer > dadoPC) {
-        console.log("Il giocatore vince")
-    } else if (dadoPC > dadoPlayer) {
-        console.log("il PC vince")
-    } else {
-        console.log("Draw")
-    }
-} else {
-    console.log("[401] Non autorizzato")
-}
